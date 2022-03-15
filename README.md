@@ -48,3 +48,37 @@ project structure
    1. `index.js`: entry point for the application
    2. `_app.js`: define layout for the application
    3. `api`: where we can host our APIs.
+
+## Routing
+
+### Introduction to Routing
+
+### Routing in a React app:
+
+1.  install a third party package like react-router-dom
+2.  routes.js file to configure the routes.
+3.  create a component file for each route, export it, import it in routes.js, and configure the new route with a _path_ property
+4.  total headache
+
+### Routing in Next.js:
+
+- File system based routing mechanism
+- when a file is added to the `/pages` folder, it automatically becomes available as a route
+- we can mix and match filenames with nested folder structures.
+
+### Routing with Pages
+
+<aside>
+💡 Every component inside `/paegs` is considered as a route. routes are associated with their filenames.
+
+</aside>
+
+### Home route ‘`/`’
+
+To create a home route that would be displayed on `DOMAIN_NAME`, modify the content in `/pages/index.js`.
+
+### Different routes
+
+Say you want to have two more routes, `/about` and `/profile`, you have to add two files in `/pages` directory vix `about.js` and `profile.js`.
+
+When you check `DOMAIN_NAME/about` and `DOMAIN_NAME/profile`, you can see pages being rendered as routes.
