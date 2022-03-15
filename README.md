@@ -100,3 +100,37 @@ Here’s how you can create `/blog`, `/blog/first` and`/blog/second`:
 > 💡 **Recall: `index.js` gets mapped to its route domain.**
 
 1. create `first.js` and `second.js` inside blog directory.
+
+### Dynamic Routes
+
+**Scenario 4:**
+We have to create a product listing and details page. If user navigates to `/product` they should see list of available products. If they click on a product, they should see details of that product, ie `/product/product1`.
+
+We can create a `/products` route and a `/products/:productId` route.
+create folder `/product` and `index.js`.
+
+now, to create a dynamic route, create a file having square brackets to its name: `[productId].js` (in product dir, okay?)
+
+now if you visit `/product/1`, you’d see content mentioned in `[productId].js` .
+
+> 💡 Next.js considers files in `/pages` having square brackets as dynamic routes. the string within the brackets is considered as a query parameter.
+
+In a typical application, you’d want to extract the content in a dynamic route and do something with it.
+
+Let’s display productId in a page. We have to import a hook from next.js:
+
+```jsx
+import { useRouter } from "next/router";
+
+const router = useRouter();
+const productId = router.query.productId;
+```
+
+**Things to note:**
+
+1. useRouter hook returns a router object, we can access query param objects.
+2. `productId` parameter in `router.query.productId` corresponds to dynamic segments we have specified as a filename, i.e. `[productId].js`
+
+The query parameter could be anything, not just a number or string. Suppose you already have a page in your directory that you have entered as dynamic route, instead of dynamic route, next will render the existing page.
+
+> 💡 Next.js will always try to match the route path with existing pages first, nested or not, before trying to match dynamic routes.
