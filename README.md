@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduction
 
-## Getting Started
+### What
 
-First, run the development server:
+- Next JS is a react framework for building full fledged production ready applications.
+- In-built support with routing, styling, auth, bundle authentication
+- no need to install additional packages
+- opinions and conventions need to be followed
+
+### Why
+
+- **File based system:** File based routing simplifies routing without any additional packages.
+- **Pre-rendering**: generates HTML in advance, great SEO
+- **API Routes:** Full stack framework, can create frontend app with react and provide APIs as well.
+- **Supports for CSS modules**
+- **Authentication**: different auth patterns based on the requirements
+- **Dev and Prof build system**: Focus on code, not on configuration.
+
+### Prerequisites
+
+- HTML, CSS, JS Fundamentals
+- ES6+
+- React fundamentals
+
+##
 
 ```bash
-npm run dev
-# or
-yarn dev
+npx create-next-app <app-name>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![project structure](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4742e01-0ef9-4749-bcfc-215b77377d10/Untitled.png)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+project structure
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. `package.json`: dependencies and scripts required for the project.
+   1. **dev**: development mode
+   2. **build**: prepares for prod
+   3. **start**: compiles app for prof mode
+   4. **lint**: lints files in your app
+2. `next.config.js`:
+   1. reactStrictMode: true.
+   2. Helps to identify unsafe lifecycle, legacy API usages
+3. `/.next`: app is served from this
+4. `/node_modules/`: dependencies are installed here
+5. `styles`: contains the style for an app - could be global or component specific styles.
+6. `public`: holds all the public resources for the application.
+7. `pages`: responsible for routing feature
+   1. `index.js`: entry point for the application
+   2. `_app.js`: define layout for the application
+   3. `api`: where we can host our APIs.
