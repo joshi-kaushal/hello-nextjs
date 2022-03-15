@@ -141,3 +141,11 @@ The query parameter could be anything, not just a number or string. Suppose you 
 If user navigates to `/product/1` they should see information about the first product. But if they navigate to `/product/1/review/1` they should see review 1 for product 1.
 
 Having dynamic segments in the folder as well as file names is the way to go.
+
+### Catch All Route
+
+**Scenario 6:**
+Suppose we are creating a docs page with multiple features. Each feature has multiple concepts in it.
+Say we have 20 features with 20 concepts each, we'd have to create 400 pages. But, since Next.js supports dynamic nested routes, we can create only 1 folder, `/[featureId]` and create one file `[conceptId].js` inside it.
+
+_Catch all routes_ catches all the URL segments and maps it to one single file in our project.
