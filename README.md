@@ -68,17 +68,35 @@ project structure
 
 ### Routing with Pages
 
-<aside>
-💡 Every component inside `/paegs` is considered as a route. routes are associated with their filenames.
-
-</aside>
+> 💡 Every component inside `/paegs` is considered as a route. routes are associated with their filenames.
 
 ### Home route ‘`/`’
+
+**Senario 1:**
+If have a single page application, we can use the `/` route as the home route.
 
 To create a home route that would be displayed on `DOMAIN_NAME`, modify the content in `/pages/index.js`.
 
 ### Different routes
 
+**Scenario 2:**
+If we have multiple pages, we can create different routes for each page. For example, we can have a `/about` route and a `/contact` route. These routes must be defined in `/pages/about.js` and `/pages/contact.js` respectively.
+
 Say you want to have two more routes, `/about` and `/profile`, you have to add two files in `/pages` directory vix `about.js` and `profile.js`.
 
 When you check `DOMAIN_NAME/about` and `DOMAIN_NAME/profile`, you can see pages being rendered as routes.
+
+### Nested Routes
+
+To create nested routes, you need to create a folder with the same name as your route and add nested pages inside it.
+
+**Scenario 3:**
+We want to render a page, when the user visits the URL `/blog`. However, we also need to render a page, when user navigates to `/blog/first` and `/blog/two`.
+Here’s how you can create `/blog`, `/blog/first` and`/blog/second`:
+
+1. Create `/blog` inside `/pages`
+2. Create `index.js` inside blog directory, it would serve as `/blog` route.
+
+> 💡 **Recall: `index.js` gets mapped to its route domain.**
+
+1. create `first.js` and `second.js` inside blog directory.
