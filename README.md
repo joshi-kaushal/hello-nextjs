@@ -150,7 +150,7 @@ Say we have 20 features with 20 concepts each, we'd have to create 400 pages. Bu
 
 _Catch all routes_ catches all the URL segments and maps it to one single file in our project.
 
-## Link Component Navigation
+### Link Component Navigation
 
 Until now, we are navigating by changing the URL. And this is not how we want to do it in production. Next.js has a built-in feature to navigate by changing the URL, `Link`.
 
@@ -165,3 +165,21 @@ import Link from "next/link";
 ```
 
 If we provide `replace` props with the Link component, it replaces the current history state instead of adding a new URL into the stack. Default value is false.
+
+### Navigating Programmatically
+
+**Scenario 7:**
+We want to navigate to a page based on a certain event or action.
+
+```bash
+import { useRouter } from "next/router";
+
+   const router = useRouter();
+   const handleClick = () => {
+      router.push("/product/");
+   };
+```
+
+This will navigate to `/product/` route by pushing the `/product/` route into the history stack. If we want to replace the stack entirely, we can use `router.replace()` instead.
+
+You can pass any valid string that you can pass to href attribute of `Link` component.
