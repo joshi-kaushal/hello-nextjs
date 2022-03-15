@@ -149,3 +149,19 @@ Suppose we are creating a docs page with multiple features. Each feature has mul
 Say we have 20 features with 20 concepts each, we'd have to create 400 pages. But, since Next.js supports dynamic nested routes, we can create only 1 folder, `/[featureId]` and create one file `[conceptId].js` inside it.
 
 _Catch all routes_ catches all the URL segments and maps it to one single file in our project.
+
+## Link Component Navigation
+
+Until now, we are navigating by changing the URL. And this is not how we want to do it in production. Next.js has a built-in feature to navigate by changing the URL, `Link`.
+
+The `Link` component is used for client side routing. That means, routing within the application. For routing to external pages, we use `<a>` tag.
+
+```bash
+import Link from "next/link";
+
+   <Link href="/about">
+      <a>About</a>
+   </Link>
+```
+
+If we provide `replace` props with the Link component, it replaces the current history state instead of adding a new URL into the stack. Default value is false.
