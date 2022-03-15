@@ -134,3 +134,10 @@ const productId = router.query.productId;
 The query parameter could be anything, not just a number or string. Suppose you already have a page in your directory that you have entered as dynamic route, instead of dynamic route, next will render the existing page.
 
 > 💡 Next.js will always try to match the route path with existing pages first, nested or not, before trying to match dynamic routes.
+
+### Nested Dynamic Routes
+
+**Scenario 5:**
+If user navigates to `/product/1` they should see information about the first product. But if they navigate to `/product/1/review/1` they should see review 1 for product 1.
+
+Having dynamic segments in the folder as well as file names is the way to go.
