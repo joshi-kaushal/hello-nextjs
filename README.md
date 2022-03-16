@@ -183,3 +183,40 @@ import { useRouter } from "next/router";
 This will navigate to `/product/` route by pushing the `/product/` route into the history stack. If we want to replace the stack entirely, we can use `router.replace()` instead.
 
 You can pass any valid string that you can pass to href attribute of `Link` component.
+
+## Pre-rendering
+
+**Try this:**
+Open a simpler react application and open page source by right clicking it. Do the same for simple next app too. You'd see that react source is completely empty and has only one div with id `root`. Whereas, next app will have everything that is rendered on the page.
+
+That's the main difference between react and next.js
+In next.js, pages are **pre-rendered**. That means, HTML is already generated in the server and sent to the client.
+
+Pre-rendering refers to the process of generating HTML with the necessary data for a page in our application.
+
+### Why pre-rendering?
+
+- Improves performance
+- Improves SEO
+- Improves accessibility
+
+Next.js supports to forms of pre-rendering.
+
+1. Static Generation
+2. Server-side Generation
+
+## Static Generation
+
+- HTML pages are generated at build time.
+- The HTML with all the data that makes up the page is generated at build time.
+- This is recommended to pre-render pages whenever possible.
+- Pages can be built once, cached by a CDN and served to the client almost instantly.
+- eg: blog, e-commerce, product page, documentation and marketing pages.
+
+Next.js will pre-render every app.
+
+Here's something important:
+When in production, a page will be pre-rendered once when we run the `build` command.
+In development mode, page is pre-rendered after every request you made. This to ensure that code changes are reflected on every browser.
+
+> Next.js, by default, without any configuration, statically generates every page when we build our app in production. This allows page to be cached by a CDN and indexed by search engines.
