@@ -220,3 +220,33 @@ When in production, a page will be pre-rendered once when we run the `build` com
 In development mode, page is pre-rendered after every request you made. This to ensure that code changes are reflected on every browser.
 
 > Next.js, by default, without any configuration, statically generates every page when we build our app in production. This allows page to be cached by a CDN and indexed by search engines.
+
+### getStaticProps()
+
+You can export an async function `getStaticProps()` with the default export of the page component. This function will run at build time, in production, and it can fetch external data and send it as props to the page.
+
+getStaticProps() must be in the **same file** as the page component. And it must **return a an object** with `props` key.
+
+```js
+export default function PageComponent(props) {
+  return <div>{props.foo}</div>;
+}
+
+export async function getStaticProps() {
+  const res = await fetch("https://api.example.com/products/1");
+  const product = await res.json();
+  return {
+    props: {
+      product,
+    },
+  };
+}
+```
+
+**Few things to remember**:
+
+1. `getStaticProps()` runs on build time. When in development, it runs after every request. When in production, it runs only once, ie during the build time.
+2. `getStaticProps()` must return an object with `props` key, which is an object itself.
+3. `getStaticProps()` must be in the same file as the page component. You can have this function in regular component file, or in a separate file.
+4. It only runs on the server side. The code inside the function won't even be included in the JS bundle that is sent to the client.
+5. You can write server side code directly in `getStaticProps()`function. This allows you to use Node.js features like accessing file system. You can also use API keys without any hesitation, since it is only run on the server side.
