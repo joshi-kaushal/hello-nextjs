@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -20,6 +21,13 @@ export default function Home() {
       <main>
         <h1>Hello Next.js!</h1>
         <p>I am being pre-rendered :)</p>
+
+        <Link href="/users" passHref>
+          <h2>Users</h2>
+        </Link>
+        <Link href="/posts" passHref>
+          <h2>Posts</h2>
+        </Link>
       </main>
     </div>
   );

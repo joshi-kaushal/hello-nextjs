@@ -297,6 +297,10 @@ In our current app, there is no way to render `/users` route without explicitly 
 And that's why, you would not see data related to `/users` route fetched from the server. However, if you navigate to `/users` route, you would see that necessary data is fetched from the server.
 Now, in your home route, `/`, add a link to `/users` route. You would see the data related to `/users` route fetched from the server on the rendering of Home route itself. This is one of the special feature of Next.js, called as pre-fetching.
 
+### Context
+
+function `getStaticProps()` receives a parameter - context. It has information about the request. One of it is `params` which contains the parameters passed in the URL. You can access it by `context.params`.
+
 ### Summering Static Generation
 
 - pre-rendering method where HTML pages are generated at build time.
