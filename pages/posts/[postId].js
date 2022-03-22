@@ -7,6 +7,21 @@ export default function Post({ post }) {
   );
 }
 
+export async function getStaticPaths() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await response.json();
+  const paths = posts.map((post) => ({
+    params: {
+      postId: `${post.id}`,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
 export async function getStaticProps(context) {
   const { params } = context;
 

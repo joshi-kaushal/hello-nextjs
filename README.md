@@ -309,3 +309,39 @@ function `getStaticProps()` receives a parameter - context. It has information a
 - At the build time, HTML, CSS and JS bundles are generated.
 - If you navigate to the page route, HTML file is served.
 - If you navigate to the page route from a different route, the page is created client side using the JS and JSON pre-fetched from the server.
+
+### `getStaticPaths()`
+
+Rerendering a page with dynamic parameters is not possible with `getStaticProps()`.
+Since it is a dynamic path, there could me multiple pages for values. We need to provide the possible values for the dynamic parameters via `getStaticPaths()`.
+
+In the same file as `[postId].js` component and `getStaticProps()`, we can define the async function `getStaticPaths()`.
+It returns an object with `pass` key. It tells us which paths will be statically generated at build time. The value of `pass` key is an array of objects. Each object has `params` key. The value of `params` key is an object with the dynamic parameters.
+
+```js
+export async function getStaticPaths() {
+  const res = await fetch("https://api.example.com/posts");
+  const posts = await res.json();
+  const paths = posts.map((post) => ({
+    params: {
+      postId: post.id,
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+}
+```
+
+#### Fallback key
+
+Three possible values:
+
+- **false**:
+  - paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
+  - if the requested path is not found, the page will not be rendered, and 404 page will be shown instead.
+- **true**: if the requested path is not found, the page will be rendered with the fallback data.
+  - paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
+  -
+- `blocking`: if the requested path is not found, the page will be rendered with the fallback data. But the page will be blocked until the data is fetched.

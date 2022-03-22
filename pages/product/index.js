@@ -8,7 +8,7 @@ export default function Product() {
       <h2>Product 02</h2>
       <h2>Product 03</h2>
 
-      <Link href="/">
+      <Link href="/" passHref>
         <h4>Go Home</h4>
       </Link>
     </>
