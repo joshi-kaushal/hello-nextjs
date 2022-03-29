@@ -397,3 +397,10 @@ BUT,
 1. The build time is proportional to the number of pages in the app.
 
 2. The page contains stale data till the time you rebuild the app.
+
+### Incremental Static Side Generation
+
+The problem with SSG is, if you change the data after the build, pages won't reflect latest data and will be stale. The only way to fix this in SSG is rebuild the app.
+
+With ISR, we can update static pages after they are built.
+Statically generating individual pages without needing to rebuild the entire site solves issue of dealing with state data.
