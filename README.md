@@ -336,12 +336,64 @@ export async function getStaticPaths() {
 
 #### Fallback key
 
-Three possible values:
+Compulsory value. Three possible values:
 
-- **false**:
-  - paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
-  - if the requested path is not found, the page will not be rendered, and 404 page will be shown instead.
-- **true**: if the requested path is not found, the page will be rendered with the fallback data.
-  - paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
-  -
-- `blocking`: if the requested path is not found, the page will be rendered with the fallback data. But the page will be blocked until the data is fetched.
+#### false
+
+- paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
+- if the requested path is not found, the page will not be rendered, and 404 page will be shown instead.
+
+#### true
+
+- if the requested path is not found, the page will be rendered with the fallback data.
+
+- paths returned from `getStaticPaths()`will be rendered to HTML at build time by `getStaticProps()`.
+- if the page requested is not built at the build time, the fallback data will be rendered instead.
+
+```js
+import { useRouter } from "next/router";
+
+const router = useRouter();
+if (router.isFallback) {
+  return <h1>Loading...</h1>;
+}
+```
+
+- In the background, Next.js will statically generate the requested HTML and JSON files, using `getStaticProps()`.
+
+- The server initially loads the fallback content and then the server will fetch the data from the API and replace the fallback content with the actual content.
+
+- If the requested data is not present in the database itself, the server will render 404 page.
+
+**When**
+
+- Most suitable if your app has a very large number of static pages that depend on data, eg e-commerce website
+
+#### blocking
+
+- if the requested path is not found, the page will be rendered with the fallback data. But the page will be blocked until the data is fetched.
+
+- suppose a page needs to be rendered from the server. Unlike `fallback: true`, next.js will render the page on the server and return the generated HTML page.
+
+- until then, the page is blank and in the loading state, ie you could see the favicon loading in the browser.
+- no need to use `useRouter`.
+
+If you check the network tab for loading page, you would see more time than prefetched pages. this is because next.js builds the page at run time and sends it back.
+**When**
+
+- Sometimes user may prefer a page to be loaded without loading indicator if the wait time is a few milliseconds longer.
+- Next.js recommends `fallback: true` whenever possible.
+- some crawlers did not support JS. fallback true was causing some problems.
+
+### Issues with Static Generation
+
+- SSG is a pre-rendering method where HTML pages are generated at build time.
+- pre-rendered static pages can be pushed to a CDN, cached and serve to clients across the globe.
+- content is fast and better for SEO as they immediately indexed by search engines.
+- SSG with `getStaticProps()` for data fetching and `getStaticPaths()` for dynamic pages is good option.
+
+BUT,
+
+1. The build time is proportional to the number of pages in the app.
+
+2. The page contains stale data till the time you rebuild the app.
