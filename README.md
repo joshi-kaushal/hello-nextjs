@@ -398,7 +398,7 @@ BUT,
 
 2. The page contains stale data till the time you rebuild the app.
 
-### Incremental Static Side Generation
+### Incremental Static Side Generation (ISR)
 
 The problem with SSG is, if you change the data after the build, pages won't reflect latest data and will be stale. The only way to fix this in SSG is rebuild the app.
 
