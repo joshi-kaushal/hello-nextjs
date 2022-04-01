@@ -404,3 +404,34 @@ The problem with SSG is, if you change the data after the build, pages won't ref
 
 With ISR, we can update static pages after they are built.
 Statically generating individual pages without needing to rebuild the entire site solves issue of dealing with state data.
+
+### How?
+
+In the `getStaticProps()` function, apart from the props key, we can specify a `revalidate` key.
+
+The value of revalidate is the number fo seconds after which the page re-generation can occur.
+
+```js
+export async function getStaticProps() {
+  ...
+  return {
+    props: {
+     ...
+    },
+    revalidate: 10,
+  };
+}
+```
+
+If you add a `console.log()` in the `getStaticProps()` function, you would see one log at the time of build and then every time you're using the app.
+While you are using the app, `getStaticProps()` will be called after every seconds passed with `revalidate` key.
+If you try to refresh the page after 10 seconds, you would see the log again.
+However, if you refresh the page before 10 seconds, you would not see the log.
+
+---
+
+Re-generation is the time after which if a user makes a request, the page is re-generated.
+Re-generation is initiated only if a user makes a request after the `revalidate` time.
+The re-generation won't happen if no user visits the page.
+Re-generation does not mean that page is automatically generated after every `revalidate` time.
+It might fail sometimes and in such cases, old cached HTML is served.
