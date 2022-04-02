@@ -435,3 +435,61 @@ Re-generation is initiated only if a user makes a request after the `revalidate`
 The re-generation won't happen if no user visits the page.
 Re-generation does not mean that page is automatically generated after every `revalidate` time.
 It might fail sometimes and in such cases, old cached HTML is served.
+
+--- Summing up
+Static generation is a pre-rendering method where HTML pages are generated at build time. This leads to two major problems:
+
+1. Cannot fetch data at request time:
+
+- we run into a problem on stale data
+- suppose a site like news website or stock website, where data is updated every few seconds.
+- Even though we use ISR, we still might not always see the most up to date data.
+- you can fetch the data on client side using `useEffect()` but you have to sacrifice SEO.
+
+2. We don't get access to the incoming request.
+
+- Problem arises when the data needs to be fetched as per a specific user.
+- assume a social media website where feed is personalized based on user's interest.
+
+To overcome this problems, Next.js has a second way of rendering the page, **server side rendering** or SSR.
+The HTML page is generated for every incoming request.
+SSR is helpful when you need to fetch data per request and also when you need to fetch personalized data keeping in mind SEO.
+
+## Server Side Rendering (SSR)
+
+1. Runs only runs on the server side, so the code you write in `getServerSideProps()` will not be included in the JS bundle that is sent to the browser.
+2. You can write server side code directly in `getServerSideProps()`. Meaning, you can use Node.js APIs like file system or even query databases directly.
+3. Allowed only in a page, not in components.
+4. Used only for pre-rendering and not for data fetching.
+5. `getServerSideProps()` will run at request time. Hence it is slower than `getStaticProps()`.
+6. `getServerSideProps()` should return an object with `props` key, which is an object itself.
+
+```js
+export async function getServerSideProps() {
+  const response = await fetch("http://localhost:3001/news");
+  const articles = await response.json();
+
+  return {
+    props: {
+      articles,
+    },
+  };
+}
+```
+
+### Dynamic Routes with SSR
+
+Similar to SSG, we can use `getServerSideProps()` to generate dynamic routes. The convention and the code is the same.
+
+1. You create a file wrapped in square brackets to represent the dynamic route.
+
+### `context` in SSR
+
+As said in the previous section, Static Side Generation is unable to access incoming requests. That prevents you from fetching data that is user specific.
+
+Let's look at what SSR provides to overcome this limitation.
+The `context` object that is passed to `getServerSideProps()` does the wonder for us. It contains the following properties:
+
+1. request
+2. response
+3. query
