@@ -493,3 +493,31 @@ The `context` object that is passed to `getServerSideProps()` does the wonder fo
 1. request
 2. response
 3. query
+
+### When to use client side rendering
+
+private, does not need seo, client specific data
+
+### SWR Hook
+
+Next.js recommends SWR Library for data fetching. It stands for Stale While Revalidate. It is a rect hooks library for data fetching. It handles caching revalidating, focus tracking refocusing on interval and a lot more.
+
+```bash
+yarn add swr
+```
+
+```js
+import useSWR from "swr";
+
+const fetcher = async () => {
+  const response = await fetch("http://localhost:3001/dashboard");
+  const data = await response.json();
+
+  return data;
+};
+const { data, error } = useSWR("dashboard", fetcher);
+```
+
+SWR hook takes two parameters, first is the unique key to the request, and second argument is the function that will be called to fetch the data. The Next.js convention is to define a function separately in the same file and call it `fetcher`.
+
+Fetcher functions returns two things, error and data, that you can use accordingly.
