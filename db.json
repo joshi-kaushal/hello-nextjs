@@ -1,4 +1,48 @@
 {
+  "events": [
+    {
+      "id": 1,
+      "title": "Event 1",
+      "description": "Description 1",
+      "category": "sports",
+      "date": "2018-01-01"
+    },
+    {
+      "id": 2,
+      "title": "Event 2",
+      "description": "Description 2",
+      "category": "cultural",
+      "date": "2018-01-01"
+    },
+    {
+      "id": 3,
+      "title": "Event 3",
+      "description": "Description 3",
+      "category": "technical",
+      "date": "2018-01-01"
+    },
+    {
+      "id": 4,
+      "title": "Event 4",
+      "description": "Description 4",
+      "category": "sports",
+      "date": "2018-01-01"
+    },
+    {
+      "id": 5,
+      "title": "Event 5",
+      "description": "Description 5",
+      "category": "cultural",
+      "date": "2018-01-01"
+    },
+    {
+      "id": 6,
+      "title": "Event 6",
+      "description": "Description 6",
+      "category": "fun",
+      "date": "2018-01-01"
+    }
+  ],
   "dashboard": {
     "posts": 5,
     "likes": 100,

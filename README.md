@@ -521,3 +521,7 @@ const { data, error } = useSWR("dashboard", fetcher);
 SWR hook takes two parameters, first is the unique key to the request, and second argument is the function that will be called to fetch the data. The Next.js convention is to define a function separately in the same file and call it `fetcher`.
 
 Fetcher functions returns two things, error and data, that you can use accordingly.
+
+### Shallow Routing
+
+Update URL in the browser without running the code from `getServerSideProps()`
