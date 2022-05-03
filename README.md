@@ -536,3 +536,109 @@ Within the `/pages` folder, you can need to create a folder named `/api`. Within
 You can add business logic without needing to write any additional custom server code or configure any API routes.
 
 And this code is not bundled with the JS sent to the client and is only executed on the server side.
+
+## `GET` Route
+
+Suppose we have a `/api/comments` endpoint that has a list of comments.
+
+```js
+const fetchComments = async () => {
+  const response = await fetch("/api/comments");
+  const data = await response.json();
+  setComments(data);
+};
+```
+
+## `POST` Route
+
+```js
+const submitComment = async () => {
+  const response = await fetch("/api/comments", {
+    method: "POST",
+    body: JSON.stringify({ comment }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+  console.log(data);
+};
+```
+
+## `DELETE` Route
+
+````js
+const deleteComment = async (commentId) => {
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  console.log(data);
+};```
+````
+
+## `PUT` Route
+
+```js
+const updateComment = async (commentId) => {
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ comment }),
+  });
+
+  const data = await response.json();
+  console.log(data);
+};
+```
+
+## Server Code for everyone:
+
+`api/comments`
+
+```js
+export default function handler(req, res) {
+  if (req.method == "GET") {
+    res.status(200).json(comments);
+  } else if (req.method == "POST") {
+    const comment = req.body.comment;
+
+    const newComment = {
+      id: Date.now(),
+      comment,
+    };
+    comments.push(newComment);
+    res.status(201).json(comments);
+  }
+}
+```
+
+`api/comments/:id`
+
+```js
+export default function handler(req, res) {
+  const { commentId } = req.query;
+
+  if (req.method === "GET") {
+    const comment = comments.find((comment) => comment.id == commentId);
+
+    res.status(200).json(comment);
+  } else if (req.method == "DELETE") {
+    const comment = comments.find((comment) => comment.id == commentId);
+    const index = comments.indexOf(comment);
+    comments.splice(index, 1);
+
+    res.status(200).json(comments);
+  } else if (req.method == "PUT") {
+    const comment = comments.find((comment) => comment.id == commentId);
+    const index = comments.indexOf(comment);
+
+    comments[index].comment = req.body.comment;
+
+    res.status(200).json(comments);
+  }
+}
+```
