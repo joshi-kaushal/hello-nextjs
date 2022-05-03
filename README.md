@@ -525,3 +525,14 @@ Fetcher functions returns two things, error and data, that you can use according
 ### Shallow Routing
 
 Update URL in the browser without running the code from `getServerSideProps()`
+
+# API Routes
+
+Next.js is a fullstack framework. It also allows us to write APIs that can be consumed by the client.
+API routes allow you to write RESTful endpoints as a part of your next.js project.
+
+Within the `/pages` folder, you can need to create a folder named `/api`. Within that folder, you can define all of your APIs.
+
+You can add business logic without needing to write any additional custom server code or configure any API routes.
+
+And this code is not bundled with the JS sent to the client and is only executed on the server side.
