@@ -4,6 +4,14 @@ export default function CommentsPage() {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
+  const deleteComment = async (commentId) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   const submitComment = async () => {
     const response = await fetch("/api/comments", {
       method: "POST",
@@ -36,7 +44,10 @@ export default function CommentsPage() {
       <button onClick={fetchComments}>Load Comments</button>
 
       {comments.map((comment) => (
-        <div key={comment.id}>{comment.comment}</div>
+        <div key={comment.id}>
+          {comment.id}:{comment.comment}
+          <button onClick={() => deleteComment(comment.id)}>Delete</button>
+        </div>
       ))}
     </>
   );
