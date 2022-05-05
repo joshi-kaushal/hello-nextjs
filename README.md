@@ -537,6 +537,8 @@ You can add business logic without needing to write any additional custom server
 
 And this code is not bundled with the JS sent to the client and is only executed on the server side.
 
+> You can not call these APIs from `getServerSideProps()` or `getStaticProps()` as they would increase the response delay.
+
 ## `GET` Route
 
 Suppose we have a `/api/comments` endpoint that has a list of comments.
@@ -642,3 +644,28 @@ export default function handler(req, res) {
   }
 }
 ```
+
+## Catch All Routes
+
+There might be cases where segments in the URL are optional. Or we might want a single endpoint to handle one or more segments. In that case, we can use a catch all route.
+
+```
+/api/posts/segment1/segment2/segment3
+```
+
+The file name convention is same as that of the pages: `[...params.js]`.
+This endpoint will match for `api/posts/segment1/`, `api/posts/segment1/segment2/`, `api/posts/segment1/segment2/segment3` and so on.
+
+```
+export default function handler(req, res) {
+  const params = req.query.params;  // same as filename
+  console.log(params);
+  res.status(200).json(params);
+}
+```
+
+However, it doesn't match for `api/posts/`. If you want to handle that, you can use optional catch all route. Catch all routes is made optional by including parameter in double brackets `[[...slug]]`.
+
+> The main difference between catch all and optional catch all routes is that with optional, the route without the parameter is also matched (/post in the example above).
+
+## Styling in CSS
