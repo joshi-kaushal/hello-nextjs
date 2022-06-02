@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "../../components/Footer";
 
 export default function Posts({ posts }) {
   return (
@@ -19,6 +20,15 @@ export default function Posts({ posts }) {
     </>
   );
 }
+
+Posts.getLayout = function PageLayout(page) {
+  return (
+    <>
+      {page}
+      <Footer />
+    </>
+  );
+};
 
 export async function getStaticProps(context) {
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);

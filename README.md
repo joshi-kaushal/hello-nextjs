@@ -669,3 +669,116 @@ However, it doesn't match for `api/posts/`. If you want to handle that, you can 
 > The main difference between catch all and optional catch all routes is that with optional, the route without the parameter is also matched (/post in the example above).
 
 ## Styling in CSS
+
+### Global Styles
+
+CSS Modules are useful for component-level styles. But if you want some CSS to be loaded by every page, Next.js has support for that as well.
+
+To load global CSS files, create a file called `pages/_app.js` with the following content:
+
+```js
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+```
+
+This `App` component is the top-level component which will be common across all the different pages. You can use this App component to keep state when navigating between pages, for example.
+
+### Component Level Styling
+
+Next.js allows CSS modules by default. CSS modules are created by creating a `.module.css` file in the `styles` folder. The name `.modules` is important because it let's Next.js know that this is a CSS module.
+
+CSS modules in Next.js has a scope of component level. That means, you can have different styling with same class name in different components. Next.js will create a unique classname for every module.
+
+````js
+To use a particular CSS file, you need to import it in the component file.
+
+```js
+import styles from "../styles.module.css";
+````
+
+And then use the imported CSS file in the component file.
+
+```js
+<div className={styles.container}>
+  <h1>Hello World</h1>
+</div>
+```
+
+### SCSS Support
+
+SCSS is a superset of CSS. It allows you to use variables, mixins, functions and so on.
+
+```
+yarn add scss
+```
+
+### CSS in JS
+
+#### Inline CSS in JS
+
+```js
+<div style={{ color: "red" }}>Hello World</div>
+```
+
+#### Styled Components
+
+```js
+import styled from "styled-components";
+```
+
+## App Component
+
+In many cases you need a few components to be render with every page. For example, header and footer. Also it's common to have a common layout throughout the application.
+Next.js provides `_app.js` file to handle such cases. It is the top-level component which will be common across all the different pages. The file is created at the beginning itself.
+
+Now suppose you need to have a header and footer in every page.
+
+1. Start by creating a `Header` and `Footer` component inside `/components` directory.
+2. Import those in `_app.js` file.
+3. Render imported components where ever required.
+
+```js
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+      <Footer />
+    </>
+  );
+}
+```
+
+Sometimes you want to exclude these components. For example, you don't want the Header component to be in login or sign up page.
+Next.js also offers a way to exclude components.
+
+Add this snippet in the file if you don't want to render a particular component.
+
+In this case, the Header component won't be rendered in `Posts` page.
+
+```js
+// Posts.js
+import Footer from "../components/Footer";
+
+...
+
+Posts.getLayout = function PageLayout(page) {
+  return (
+    <>
+      {page}
+      <Footer />
+    </>
+  );
+};
+```
+
+That's not it. You need to make changes in `_app.js` too.
+
+```js
+// _app.js
+
+if (Component.getLayout) {
+  return Component.getLayout(<Component {...pageProps} />);
+}
+```
