@@ -755,7 +755,7 @@ Next.js also offers a way to exclude components.
 
 Add this snippet in the file if you don't want to render a particular component.
 
-In this case, the Header component won't be rendered in `Posts` page.
+In this case, the Header component won't be rendered in `Posts` page. Only the Footer component will be rendered.
 
 ```js
 // Posts.js
