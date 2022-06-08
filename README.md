@@ -782,3 +782,67 @@ if (Component.getLayout) {
   return Component.getLayout(<Component {...pageProps} />);
 }
 ```
+
+## Head Component
+
+Used to manipulate `<head>` tag of the HTML page.
+
+```js
+import Head from "next/head";
+
+...
+
+return <>
+  <Head>
+    <title>My Title</title>
+    <meta name="description" content="My Description" />
+  </Head>
+  <Component {...pageProps} />
+</>
+```
+
+## Image Component
+
+- Optimizing images
+- lazy loading,
+- placeholder image
+
+```js
+import Image from "next/image";
+...
+
+<Image src={img} alt={title} width={imgWidth} height={imgHeight}>
+```
+
+## Absolute imports and Module Paths
+
+When the scope of your app increases, you need to import components from different directories. Importing from the nested folders could create a visual mess in the IDE.
+
+Next.js fixes this by allowing you to create absolute imports.
+
+Create a file called `.jsconfig.json` in the root directory of your project.
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@layout/*": ["components/layout/*"]
+    }
+  }
+}
+```
+
+You can do this:
+
+```js
+// Before
+import Header from "../components/layout/Header";
+
+// After
+import Header from "@layout/Header";
+```
+
+## Typescript Support
+
+https://youtu.be/2SLLvO9OK10
